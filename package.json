@@ -1,0 +1,27 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "A web application to build a static content generation",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/von-berlichingen/golb.git"
+  },
+  "keywords": [
+    "Javascript",
+    "Node.js",
+    "Gulp"
+  ],
+  "author": "Anis Ben Amara",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/von-berlichingen/golb/issues"
+  },
+  "homepage": "https://github.com/von-berlichingen/golb#readme",
+  "engines": {
+    "node": "6.5.0"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1"
+  }
+}
