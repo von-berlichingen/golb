@@ -8,3 +8,7 @@ stream.on('data', function(chunk) {
 stream.on('end', function() {
   console.log('END!!');
 });
+
+stream.on('error', function(err) {
+  console.log("Error", err);
+});
