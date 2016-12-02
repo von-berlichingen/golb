@@ -57,7 +57,7 @@ gulp.task('homepage', function() {
 gulp.task('webserver', function() {
   return gulp
     .src('build')
-    .pipe(webserver());
+    .pipe(webserver({ livereload: true }));
 });
 
 gulp.task('default', ['css', 'homepage', 'javascript']);
