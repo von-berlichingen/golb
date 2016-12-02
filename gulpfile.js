@@ -39,6 +39,12 @@ gulp.task('spec-watch', function() {
   gulp.watch(['specs/**.js', 'contents/javascripts/**.js'], ['test'])
 });
 
+gulp.task('homepage', function() {
+  return gulp
+    .src('contents/index.html')
+    .pipe(gulp.dest('build'));
+});
+
 gulp.task('default', ['clean'], function() {
   console.log('Concat, move and minify all css files in styles folder.');
 
