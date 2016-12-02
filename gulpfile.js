@@ -11,7 +11,7 @@ gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
 
   return gulp
-    .src('build/*', { read: false })
+    .src('build/styles/**.css', { read: false })
     .pipe(clean());
 });
 
@@ -35,6 +35,14 @@ gulp.task('javascript', [], function() {
     .pipe(gulp.dest('build/js'));
 });
 
+gulp.task('css', ['clean'], function() {
+  return gulp
+    .src('contents/styles/**.css')
+    .pipe(concat('main.min.css'))
+    .pipe(cssmin())
+    .pipe(gulp.dest('build/styles'));
+});
+
 gulp.task('spec-watch', function() {
   gulp.watch(['specs/**.js', 'contents/javascripts/**.js'], ['test'])
 });
@@ -45,12 +53,8 @@ gulp.task('homepage', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('default', ['clean'], function() {
-  console.log('Concat, move and minify all css files in styles folder.');
+gulp.task('default', ['css', 'homepage', 'javascript']);
 
-  return gulp
-    .src('contents/styles/**.css')
-    .pipe(concat('main.min.css'))
-    .pipe(cssmin())
-    .pipe(gulp.dest('build/styles'));
+gulp.task('watch', [], function() {
+  gulp.watch('contents/**', ['default']);
 });

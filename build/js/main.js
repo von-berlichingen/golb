@@ -1,1 +1,0 @@
-function someFunction(){var n=2;return n-5}
