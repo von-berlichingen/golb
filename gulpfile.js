@@ -7,6 +7,7 @@ var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var jasmine = require('gulp-jasmine');
 var webserver = require('gulp-webserver');
+var markdown = require('gulp-markdown');
 
 gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
@@ -46,6 +47,13 @@ gulp.task('css', ['clean'], function() {
 
 gulp.task('spec-watch', function() {
   gulp.watch(['specs/**.js', 'contents/javascripts/**.js'], ['test'])
+});
+
+gulp.task('generate_pages', [], function() {
+  return gulp
+    .src('contents/pages/**.md')
+    .pipe(markdown())
+    .pipe(gulp.dest('build/pages'));
 });
 
 gulp.task('homepage', function() {
