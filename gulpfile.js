@@ -5,6 +5,7 @@ var cssmin = require('gulp-minify-css');
 var jsValidate = require('gulp-jsvalidate');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
+var jasmine = require('gulp-jasmine');
 
 gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
@@ -12,6 +13,12 @@ gulp.task('clean', [], function() {
   return gulp
     .src('build/*', { read: false })
     .pipe(clean());
+});
+
+gulp.task('test', function() {
+  return gulp
+    .src('specs/**.js')
+    .pipe(jasmine());
 });
 
 gulp.task('javascript', [], function() {
@@ -26,6 +33,10 @@ gulp.task('javascript', [], function() {
     .pipe(uglify())
     .pipe(concat('main.min.js'))
     .pipe(gulp.dest('build/js'));
+});
+
+gulp.task('spec-watch', function() {
+  gulp.watch(['specs/**.js', 'contents/javascripts/**.js'], ['test'])
 });
 
 gulp.task('default', ['clean'], function() {
