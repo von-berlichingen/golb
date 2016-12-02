@@ -3,6 +3,7 @@ var concat = require('gulp-concat');
 var clean = require('gulp-rimraf');
 var cssmin = require('gulp-minify-css');
 var jsValidate = require('gulp-jsvalidate');
+var notify = require('gulp-notify');
 
 gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
@@ -17,7 +18,10 @@ gulp.task('javascript', [], function() {
 
   return gulp
     .src('contents/js/**.js')
-    .pipe(jsValidate());
+    .pipe(jsValidate())
+    .on('error', notify.onError(function(err) {
+      return 'Some javascript errors here: ' + err.message;
+    }));
 });
 
 gulp.task('default', ['clean'], function() {
