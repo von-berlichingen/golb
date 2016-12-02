@@ -6,6 +6,7 @@ var jsValidate = require('gulp-jsvalidate');
 var notify = require('gulp-notify');
 var uglify = require('gulp-uglify');
 var jasmine = require('gulp-jasmine');
+var webserver = require('gulp-webserver');
 
 gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
@@ -51,6 +52,12 @@ gulp.task('homepage', function() {
   return gulp
     .src('contents/index.html')
     .pipe(gulp.dest('build'));
+});
+
+gulp.task('webserver', function() {
+  return gulp
+    .src('build')
+    .pipe(webserver());
 });
 
 gulp.task('default', ['css', 'homepage', 'javascript']);
