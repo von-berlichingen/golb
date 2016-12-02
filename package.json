@@ -7,6 +7,9 @@
     "type": "git",
     "url": "git+https://github.com/von-berlichingen/golb.git"
   },
+  "scripts": {
+    "start": "gulp"
+  },
   "keywords": [
     "Javascript",
     "Node.js",
