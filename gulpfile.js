@@ -11,6 +11,12 @@ var markdown = require('gulp-markdown');
 var tap = require('gulp-tap');
 var handlebars = require('handlebars');
 var rename = require('gulp-rename');
+var _ = require('underscore');
+var path = require('path');
+
+var Data = {
+  pages: []
+};
 
 gulp.task('clean', [], function() {
   console.log('Clean all files in build folder.');
@@ -60,9 +66,29 @@ gulp.task('generate_pages', [], function() {
 
       return gulp
         .src('contents/pages/**.md')
+        .pipe(tap(function(file) {
+          var name = path.basename(file.path, '.md');
+          var contents = file.contents.toString();
+          var index = contents.indexOf('---');
+
+          if(index !== -1) {
+            var data = JSON.parse(contents.slice(0, index));
+            data.name = name;
+            data.url = '/pages/' + file.relative.replace('.md', '.html');
+
+            Data.pages.push(data);
+
+            contents = contents.slice(index+3, contents.length);
+            file.contents = new Buffer(contents, 'utf-8');
+          }
+        }))
         .pipe(markdown())
         .pipe(tap(function(file) {
-          var data = { contents: file.contents.toString() };
+          var name = path.basename(file.path, '.html');
+          var data = _.findWhere(Data.pages, { name: name });
+          console.log(data);
+
+          data.contents = file.contents.toString();
           var html = template(data);
 
           file.contents = new Buffer(html, 'utf-8');
